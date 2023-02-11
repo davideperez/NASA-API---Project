@@ -1,0 +1,26 @@
+{
+  "name": "nasa-api---project",
+  "version": "1.0.0",
+  "description": "Nodejs Backend Project",
+  "main": "index.js",
+  "scripts": {
+    "install-client":"npm install --prefix client",
+    "install-server":"npm install --prefix server",
+    "install": "npm run install-server && npm run instal-client",
+    "server": "npm start --prefix server",
+    "client": "npm start --prefix client",
+    "watch": "npm run server & npm run client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davideperez/NASA-API---Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davideperez/NASA-API---Project/issues"
+  },
+  "homepage": "https://github.com/davideperez/NASA-API---Project#readme"
+}
