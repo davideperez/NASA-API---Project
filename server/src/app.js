@@ -6,8 +6,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 
 // ==> imports - Routes
-const planetsRouter = require('./routes/planets/planets-router')
-const launchesRouter = require('./routes/launches/launches-router')
+const planetsRouter = require('./routes/planets/planets.router')
+const launchesRouter = require('./routes/launches/launches.router')
 
 
 //App setup
