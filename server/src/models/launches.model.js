@@ -1,7 +1,6 @@
-//const launches = require('./launches.mongo')
+const launchesDataBase = require('./launches.mongo')
 
-const launches = new Map();
-
+//const launches = new Map();
 
 let latestFlightNumber = 100;
 
@@ -16,14 +15,29 @@ const launch = {
     success: true
 };
 
-launches.set(launch.flightNumber, launch);
+saveLaunch(launch);
 
 function existsLaunchWithId(launchId) {
     return launches.has(launchId)
 };
 
-function getAllLaunches() {
-    return Array.from(launches.values())
+async function getAllLaunches() {
+    //{} using an empty object mongo know we want all the entrys. The second parameter is the projection
+    // object. Were we define which properties dont want in our object, such as the mongodb id or version ob the
+    //  object.
+    return await launchesDataBase
+        .find({}, {
+            '_id': 0,
+            '__v': 0
+    })
+};
+
+async function saveLaunch(launch) {
+    await launchesDataBase.updateOne({
+        flightNumber: launch.flightNumber,
+    }, launch, {
+        upsert: true,
+    });
 };
 
 function addNewLaunch(launch){

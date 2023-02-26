@@ -33,7 +33,7 @@ const launchesSchema = new mongoose.Schema({
     },
 });
 
-//Connects launcheschema with the "launches" collection.
+//Connects launchesSchema with the "launches" collection.
 module.exports = mongoose.model('Launch', launchesSchema);
 
- 
+module

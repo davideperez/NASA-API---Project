@@ -7,6 +7,8 @@ const { parse } = require('csv-parse');
 
 const planets = require('./planets.mongo');
 
+// Receives any json exoplanet, filters and returns only the habitable ones.
+
 function isHabitablePlanet(planet){
     return planet['koi_disposition'] === 'CONFIRMED'
         && planet['koi_insol'] > 0.36 
@@ -14,8 +16,10 @@ function isHabitablePlanet(planet){
         && planet['koi_prad'] < 1.6;
 };
 
-// Sends an array of planets
-
+/* ////
+Receives the nasa csv exoplanets file, and streams it it through the .pipe() to the parse() that 
+ converts each row of the csv to json, then .on() receives  
+//// */
 function loadPlanetsData() {
     return new Promise((resolve, reject) => {
         const arrayOfPromises = []
@@ -44,6 +48,9 @@ function loadPlanetsData() {
             });
         });
     };
+
+
+//Receives each planet from the csv from nasa and adds upserts it to MongoDB.
 
 async function savePlanet(planet) {
     try {
