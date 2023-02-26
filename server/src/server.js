@@ -22,6 +22,9 @@ const server = http.createServer(app);
 // MongoDB SETUP
 //////////////////////////////////////////
 
+// This was asked by cconsole by mongoose, i dont know what it does yet.
+mongoose.set('strictQuery', false)
+
 mongoose.connection.once('open', () => {
     console.log('MongoDB conecction ready!');
 });

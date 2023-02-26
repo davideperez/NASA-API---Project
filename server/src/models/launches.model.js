@@ -1,4 +1,5 @@
 const launchesDataBase = require('./launches.mongo')
+const planets = require('./planets.mongo')
 
 //const launches = new Map();
 
@@ -12,7 +13,7 @@ const launch = {
     target: 'Keppler 442 b',
     customers: ['ZTM', 'NASA'],
     upcoming: true,
-    success: true
+    success: true,
 };
 
 saveLaunch(launch);
@@ -33,6 +34,14 @@ async function getAllLaunches() {
 };
 
 async function saveLaunch(launch) {
+    const planet = await planets.findOne({
+        keplerName: launch.target,
+    });
+
+    if (!planet) {
+        throw new Error('No matching planets was found.');
+    };    
+
     await launchesDataBase.updateOne({
         flightNumber: launch.flightNumber,
     }, launch, {
