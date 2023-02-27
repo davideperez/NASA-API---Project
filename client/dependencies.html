@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>dependency-cruiser output</title>
+  <style media="screen">
+    html {
+      font-family: sans-serif;
+      font-size: 10pt;
+    }
+
+    table {
+      overflow: hidden;
+    }
+
+    table,
+    td.controls {
+      transition-duration: 0.3s;
+    }
+
+    table,
+    th,
+    td {
+      border: solid black 1px;
+      border-collapse: collapse;
+      font-size: inherit;
+    }
+
+    td,
+    th {
+      position: relative;
+    }
+
+    th {
+      text-align: start;
+      vertical-align: bottom;
+      max-width: 1em;
+      max-height: 30em;
+      height: 20em;
+      font-weight: normal;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    th div {
+      transform: rotateZ(-90deg);
+      transform-origin: 0.5em;
+      text-align: start;
+      height: 1em;
+      width: 30em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    td.first-cell {
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    td.top-left {
+      border-top: solid 1px transparent;
+      border-left: solid 1px transparent;
+    }
+
+    td.top-right {
+      border-top: solid 1px transparent;
+      border-right: solid 1px transparent;
+    }
+
+    td.bottom-left {
+      border-bottom: solid 1px transparent;
+      border-left: solid 1px transparent;
+    }
+
+    td.bottom-right {
+      border-bottom: solid 1px transparent;
+      border-right: solid 1px transparent;
+    }
+
+    tbody tr:hover {
+      background-color: lightgrey;
+    }
+
+    td:hover::after,
+    td:focus::after,
+    th:hover::after,
+    th:focus::after {
+      background-color: #00000077;
+      content: "";
+      height: 5000px;
+      left: 0;
+      position: absolute;
+      top: -2500px;
+      width: 100%;
+      z-index: -1;
+    }
+
+    #table-rotated:target {
+      transform: rotateZ(45deg);
+      transform-origin: bottom left;
+    }
+
+    #table-rotated:target #unrotate {
+      opacity: 1;
+    }
+
+    #table-rotated:target #rotate {
+      opacity: 0;
+    }
+
+    #unrotate {
+      opacity: 0;
+    }
+
+    #rotate {
+      opacity: 1;
+    }
+
+    .controls {
+      opacity: 0.2;
+      vertical-align: bottom;
+      padding: 0.5em;
+    }
+
+    .controls:hover {
+      opacity: 1;
+    }
+
+    .controls a {
+      font-style: normal;
+      text-decoration: none;
+      background-color: #eee;
+      padding: 0.2em 0.5em 0.2em 0.5em;
+    }
+
+    .cell-core-module {
+      color: grey;
+      font-style: italic;
+    }
+
+    .cell-unresolvable-module {
+      color: red;
+      font-style: italic;
+    }
+
+    .cell-true {
+      background-color: black;
+      opacity: 0.5;
+    }
+
+    .cell-false {
+      background-color: white;
+      opacity: 0.5;
+    }
+
+    .cell-error {
+      background-color: red;
+      opacity: 0.5;
+    }
+
+    .cell-warn {
+      background-color: orange;
+      opacity: 0.5;
+    }
+
+    .cell-info {
+      background-color: blue;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="table-rotated">
+    <thead>
+      <tr>
+        <td class="controls top-left">
+          <a id="rotate" href="#table-rotated">rotate</a>
+          <a id="unrotate" href="#">rotate back</a>
+        </td>
+        <th>
+          <div>src/App.js</div>
+        </th><th>
+          <div>src/components/Centered.js</div>
+        </th><th>
+          <div>src/components/Clickable.js</div>
+        </th><th>
+          <div>src/components/Footer.js</div>
+        </th><th>
+          <div>src/components/Header.js</div>
+        </th><th>
+          <div>src/hooks/requests.js</div>
+        </th><th>
+          <div>src/hooks/useLaunches.js</div>
+        </th><th>
+          <div>src/hooks/usePlanets.js</div>
+        </th><th>
+          <div>src/index.js</div>
+        </th><th>
+          <div>src/pages/AppLayout.js</div>
+        </th><th>
+          <div>src/pages/History.js</div>
+        </th><th>
+          <div>src/pages/Launch.js</div>
+        </th><th>
+          <div>src/pages/Upcoming.js</div>
+        </th><th>
+          <div>src/settings.js</div>
+        </th>
+        <td class="top-right"></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          class="first-cell">
+          src/App.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/App.js ->
+    src/pages/AppLayout.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/App.js ->
+    src/settings.js" ></td>
+        <td
+          class="first-cell">
+          src/App.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/components/Centered.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/components/Centered.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/components/Clickable.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/components/Clickable.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/components/Footer.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-true"  title="src/components/Footer.js ->
+    src/components/Centered.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/components/Footer.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/components/Header.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-true"  title="src/components/Header.js ->
+    src/components/Centered.js" ></td><td class="cell cell-true"  title="src/components/Header.js ->
+    src/components/Clickable.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/components/Header.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/hooks/requests.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/hooks/requests.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/hooks/useLaunches.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/hooks/useLaunches.js ->
+    src/hooks/requests.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/hooks/useLaunches.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/hooks/usePlanets.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/hooks/usePlanets.js ->
+    src/hooks/requests.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/hooks/usePlanets.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/index.js</td>
+        <td class="cell cell-true"  title="src/index.js ->
+    src/App.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/index.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/pages/AppLayout.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/components/Centered.js" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/components/Footer.js" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/components/Header.js" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/hooks/useLaunches.js" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/hooks/usePlanets.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/pages/History.js" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/pages/Launch.js" ></td><td class="cell cell-true"  title="src/pages/AppLayout.js ->
+    src/pages/Upcoming.js" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/pages/AppLayout.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/pages/History.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/pages/History.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/pages/Launch.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/Launch.js ->
+    src/components/Clickable.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/pages/Launch.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/pages/Upcoming.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-true"  title="src/pages/Upcoming.js ->
+    src/components/Clickable.js" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/pages/Upcoming.js</td>
+      </tr>
+      <tr>
+        <td
+          class="first-cell">
+          src/settings.js</td>
+        <td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td><td class="cell cell-false" ></td>
+        <td
+          class="first-cell">
+          src/settings.js</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="bottom-left"></td>
+        <th>
+          <div>src/App.js</div>
+        </th><th>
+          <div>src/components/Centered.js</div>
+        </th><th>
+          <div>src/components/Clickable.js</div>
+        </th><th>
+          <div>src/components/Footer.js</div>
+        </th><th>
+          <div>src/components/Header.js</div>
+        </th><th>
+          <div>src/hooks/requests.js</div>
+        </th><th>
+          <div>src/hooks/useLaunches.js</div>
+        </th><th>
+          <div>src/hooks/usePlanets.js</div>
+        </th><th>
+          <div>src/index.js</div>
+        </th><th>
+          <div>src/pages/AppLayout.js</div>
+        </th><th>
+          <div>src/pages/History.js</div>
+        </th><th>
+          <div>src/pages/Launch.js</div>
+        </th><th>
+          <div>src/pages/Upcoming.js</div>
+        </th><th>
+          <div>src/settings.js</div>
+        </th>
+        <td class="bottom-right"></td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+</html>

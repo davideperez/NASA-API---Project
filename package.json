@@ -4,8 +4,8 @@
   "description": "Nodejs Backend Project",
   "main": "index.js",
   "scripts": {
-    "install-client":"npm install --prefix client",
-    "install-server":"npm install --prefix server",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install --prefix server",
     "install": "npm run install-server && npm run instal-client",
     "server": "npm start --prefix server",
     "client": "npm start --prefix client",
@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/davideperez/NASA-API---Project/issues"
   },
-  "homepage": "https://github.com/davideperez/NASA-API---Project#readme"
+  "homepage": "https://github.com/davideperez/NASA-API---Project#readme",
+  "dependencies": {
+    "graphviz": "^0.0.9"
+  },
+  "devDependencies": {
+    "dependency-cruiser": "^12.10.0"
+  }
 }

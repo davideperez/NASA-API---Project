@@ -63,7 +63,7 @@ async function saveLaunch(launch) {
     };    
 
     // CORE de la funcion: se inserta el launch a la db en mongoDB.
-    await launchesDataBase.updateOne({
+    await launchesDataBase.findOneAndUpdate({
         flightNumber: launch.flightNumber,
     }, launch, {
         upsert: true,
