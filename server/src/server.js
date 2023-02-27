@@ -3,9 +3,10 @@
 //////////////////////////////////////////
 
 const http = require('http');
-const mongoose = require('mongoose');
 const app = require('./app');
+const { mongoConnect } = require('./services/mongo')
 const { loadPlanetsData } = require('./models/planets.model');
+const { mongoConnect } = require('./services/mongo');
 
 //////////////////////////////////////////
 // SERVER CONSTANTS SETUP
@@ -14,38 +15,19 @@ const { loadPlanetsData } = require('./models/planets.model');
 // server port
 const PORT = process.env.PORT || 8000;
 
-const MONGO_URL = 'mongodb+srv://nasa-api:QIH6MdqvMjGZzPL4@nasacluster.ckp3kit.mongodb.net/nasa?retryWrites=true&w=majority';
-
 const server = http.createServer(app);
-
-//////////////////////////////////////////
-// MongoDB SETUP
-//////////////////////////////////////////
-
-// This was asked by cconsole by mongoose, i dont know what it does yet.
-mongoose.set('strictQuery', false)
-
-mongoose.connection.once('open', () => {
-    console.log('MongoDB conecction ready!');
-});
-
-// mongoose.connection.on is an event emmiter.
-mongoose.connection.on('error', (err) => { 
-    console.error(err);
-});
 
 //////////////////////////////////////////
 // SERVER Start-SETUP
 //////////////////////////////////////////
 
 async function startServer(){ // Este patron es muy util para cargar cosas antes de comience el server.
-    await mongoose.connect(MONGO_URL); // cargamos los datos de la db antes de que comience el sv.
-
+    await mongoConnect();
     await loadPlanetsData();
 
     server.listen(PORT, () => { // abrimos el sv.
         console.log(`Listening on port: ${PORT}...`);
-    });
+    })
 };
 
 //////////////////////////////////////////
