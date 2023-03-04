@@ -6,7 +6,7 @@ const http = require('http');
 const app = require('./app');
 const { mongoConnect } = require('./services/mongo')
 const { loadPlanetsData } = require('./models/planets.model');
-const {loadLaunchesData } = require('./models/launches.model')
+const { loadLaunchData } = require('./models/launches.model')
 
 //////////////////////////////////////////
 // SERVER CONSTANTS SETUP
@@ -24,7 +24,7 @@ const server = http.createServer(app);
 async function startServer(){ // Este patron es muy util para cargar cosas antes de comience el server.
     await mongoConnect();
     await loadPlanetsData();
-    await loadLaunchesData();
+    await loadLaunchData();
 
     server.listen(PORT, () => { // abrimos el sv.
         console.log(`Listening on port: ${PORT}...`);
