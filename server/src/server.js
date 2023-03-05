@@ -3,6 +3,9 @@
 //////////////////////////////////////////
 
 const http = require('http');
+
+require('dotenv').config(); //It should be called before the services and imports.
+
 const app = require('./app');
 const { mongoConnect } = require('./services/mongo')
 const { loadPlanetsData } = require('./models/planets.model');
@@ -20,6 +23,8 @@ const server = http.createServer(app);
 //////////////////////////////////////////
 // SERVER Start-SETUP
 //////////////////////////////////////////
+
+console.log(`EL PORT ES: ${process.env.PORT}`)
 
 async function startServer(){ // Este patron es muy util para cargar cosas antes de comience el server.
     await mongoConnect();
