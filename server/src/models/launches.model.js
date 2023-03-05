@@ -4,20 +4,11 @@ const axios = require('axios')
 
 const DEFAULT_FLIGHT_NUMBER = 100;
 
-const launch = {
-    flightNumber: 100, //flight_number
-    mission: 'Kepler Exploration X',//name
-    rocket: 'Explore IS1', // rocket.name
-    launchDate: new Date('December 27, 2030'), //date_local
-    target: 'Keppler 442 b', //not applicable.
-    customers: ['ZTM', 'NASA'], //payloads.customers for each payload
-    upcoming: true, //upcoming
-    success: true, // success
-};
-
-saveLaunch(launch);
-
 const SPACEX_API_URL = 'https://api.spacexdata.com/v4/launches/query'
+
+//////////////
+// Functions
+//////////////
 
 async function populateLaunches() {
     console.log("Downloading launches data...")
@@ -95,9 +86,7 @@ async function findLaunch(filter) {
 
 async function existsLaunchWithId(launchId) {
     // CORE: checcks
-    return await findLaunch({
-        flightNumber: launchId, 
-    });
+    return await findLaunch({ flightNumber: launchId });
 };
 
 async function getLatestFlightNumber() {
@@ -114,6 +103,9 @@ async function getLatestFlightNumber() {
     return latestLunch.flightNumber;
 }
 
+///////////////////////////////////////////////////////////////////////
+// Devuelve un .json que lista la cantidad de lanzamientos requeridos.
+/////////////////////////////////////////////////////////////////////////
 
 async function getAllLaunches(skip, limit) {
     /* {} using an empty object in .find({},{}) mongo know we want all the entrys. The second object parameter
@@ -122,14 +114,14 @@ async function getAllLaunches(skip, limit) {
 
     return await launchesDataBase
         .find({}, { '_id': 0, '__v': 0})
+        .sort({flightNumber: 1})
         .skip(skip)
         .limit(limit);
 };
 
-/////////////////////////////////////
-// Sube una entrada a la db de mongo
-/////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Upsertea un lanzamiento en la DB. (solo eso)
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 async function saveLaunch(launch) {
     
@@ -141,9 +133,9 @@ async function saveLaunch(launch) {
     });
 }; 
 
-//////////////////////////////////////////////////
-// Suma un documento json a la a la db de mongo.
-/////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+// Crea un nuevo lanzamiento (pero valida el planeta)
+//////////////////////////////////////////////////////////////
 
 async function scheduleNewLaunch(launch) {
 
@@ -172,6 +164,9 @@ async function scheduleNewLaunch(launch) {
     await saveLaunch(newLaunch)
 }
 
+//////////////////////////////////////////////////////
+/// Cambia el success a false en un obj lanzamiento.
+//////////////////////////////////////////////////////
 
 async function abortsLaunchById(launchId) {
     const aborted = await launchesDataBase.updateOne({
