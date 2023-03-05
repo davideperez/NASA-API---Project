@@ -21,6 +21,7 @@ const SPACEX_API_URL = 'https://api.spacexdata.com/v4/launches/query'
 
 async function populateLaunches() {
     console.log("Downloading launches data...")
+
     const response = await axios.post(SPACEX_API_URL, { //requests to spaceX API.
         query: {},
         options: {
@@ -42,6 +43,11 @@ async function populateLaunches() {
         }
     })
 
+    if(response.status != 200) {
+        console.log('Problem dowloading launch data from SpaceX')
+        throw new Error('Launch data download from spaceX, failed.')
+    }
+
     const launchDocs = response.data.docs //.data is where axios puts the data comming from the body of our response, .docs is spaceX json structure.
 
     for (const launchDoc of launchDocs) {
@@ -61,8 +67,11 @@ async function populateLaunches() {
         }
 
         console.log(`${launch.flightNumber} ${launch.mission}`)
+
+        //populates Launches Collection.
+
+        await saveLaunch(launch)
     }
-    //populates Launches Collection.
 }
 
 async function loadLaunchData() {
@@ -105,33 +114,25 @@ async function getLatestFlightNumber() {
     return latestLunch.flightNumber;
 }
 
-async function getAllLaunches() {
+
+async function getAllLaunches(skip, limit) {
     /* {} using an empty object in .find({},{}) mongo know we want all the entrys. The second object parameter
      is the projection object. There you can define which properties dont want in our object, 
      such as the mongodb id or version ob the object. */
 
     return await launchesDataBase
-        .find({}, {
-            '_id': 0,
-            '__v': 0,
-    });
+        .find({}, { '_id': 0, '__v': 0})
+        .skip(skip)
+        .limit(limit);
 };
 
 /////////////////////////////////////
 // Sube una entrada a la db de mongo
 /////////////////////////////////////
 
+
 async function saveLaunch(launch) {
-    // VALIDACION de que existe el planeta del launch en la db de planetas.
-    const planet = await planets.findOne({
-        keplerName: launch.target,
-    });
-
-    // Se implementa el ERROR en caso de que el planeta target no existiese.
-    if (!planet) {
-        throw new Error('No matching planets was found.');
-    };    
-
+    
     // CORE de la funcion: se inserta el launch a la db en mongoDB.
     await launchesDataBase.findOneAndUpdate({
         flightNumber: launch.flightNumber,
@@ -145,7 +146,19 @@ async function saveLaunch(launch) {
 /////////////////////////////////////////////////
 
 async function scheduleNewLaunch(launch) {
+
+    // VALIDACION de que existe el planeta del launch en la db de planetas.
+    const planet = await planets.findOne({
+        keplerName: launch.target,
+    });
+    
+    // Se implementa el ERROR en caso de que el planeta target no existiese.
+    if (!planet) {
+        throw new Error('No matching planets was found.');
+    };    
+
     // CALCULO: se calcula el id de los lanzamientos incrementando en 1 el id del ultimo lanzamiento. 
+    
     const newFlightNumber = await getLatestFlightNumber() + 1;
 
     //CORE: Se construyen, aqui en el backend, los campos fijos del objeto launch, el resto los camos ya los asigno el front. 
