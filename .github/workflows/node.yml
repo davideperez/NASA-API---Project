@@ -6,12 +6,19 @@ on:
     branches: [ main ]
 jobs:
   build:
+    env:
+      # we could specify the port, ie: PORT: 9000
+      CI: true #this avoid running the tests in watch mode.
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x] # it will create 2 build jobs that runs in parallel in each version.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node16
+      - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 16 
+          node-version: ${{ matrix.node-version }} #instead of passing the version with number, as 16, we indicate the matrix config as variable using the template syntax.
       - run: npm install
       - run: npm run build --prefix client
+      - run: npm test
