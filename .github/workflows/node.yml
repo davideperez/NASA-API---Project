@@ -12,13 +12,13 @@ jobs:
       MONGO_URL: mongodb://localhost/nasa
     strategy:
       matrix:
-        node-version: [17.x, 18.x] # it will create 2 build jobs that runs in parallel in each version.
-        mongodb-version: ['6.0']
+        node-version: [14.x, 16.x] # it will create 2 build jobs that runs in parallel in each version.
+        mongodb-version: ['4.4']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Use Node.js version ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }} #instead of passing the version with number, as 16, we indicate the matrix config as variable using the template syntax.
       - name: Use MongoDB from GitHub Actions # this is to have a mongo DB exclsivly for our tests.
