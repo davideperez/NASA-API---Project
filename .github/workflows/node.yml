@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }} #instead of passing the version with number, as 16, we indicate the matrix config as variable using the template syntax.
       - name: Use MongoDB from GitHub Actions # this is to have a mongo DB exclsivly for our tests.
-      - uses: supercharge/mongodb-github-action@1.9.0 #uses is a property to specify the name of the action.
-      - with:
+        uses: supercharge/mongodb-github-action@1.9.0 #uses is a property to specify the name of the action.
+        with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
       - run: npm run build --prefix client
