@@ -9,16 +9,22 @@ jobs:
     env:
       # we could specify the port, ie: PORT: 9000
       CI: true #this avoid running the tests in watch mode.
+      MONGO_URL: mongodb://localhost/nasa
     strategy:
       matrix:
-        node-version: [14.x, 16.x] # it will create 2 build jobs that runs in parallel in each version.
+        node-version: [17.x, 18.x] # it will create 2 build jobs that runs in parallel in each version.
+        mongodb-version: ['6.0']
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js version ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }} #instead of passing the version with number, as 16, we indicate the matrix config as variable using the template syntax.
+      - name: Use MongoDB from GitHub Actions # this is to have a mongo DB exclsivly for our tests.
+      - uses: supercharge/mongodb-github-action@1.9.0 #uses is a property to specify the name of the action.
+      - with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
       - run: npm run build --prefix client
       - run: npm test
