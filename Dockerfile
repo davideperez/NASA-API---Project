@@ -9,13 +9,14 @@ COPY package*.json ./
 
 # the --only=production flag, installs only the production dependencies, 
 # and not the dev dependendecies. this coould avoid security problems also.
+# forgot the--only=production flag, for the same purpose now --omit=dev is used.
 
 COPY client/package*.json client/
-RUN npm run install-client --only=production 
+RUN npm run install-client --omit=dev 
 
 # this builds the clients in the public folder on the server.
 COPY server/package.json server/
-RUN npm run install-server --only=production 
+RUN npm run install-server --omit=dev
 
 COPY client/ client/
 RUN npm run build --prefix client
