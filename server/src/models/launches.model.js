@@ -107,6 +107,8 @@ async function getLatestFlightNumber() {
 // Devuelve un .json que lista la cantidad de lanzamientos requeridos.
 /////////////////////////////////////////////////////////////////////////
 
+// READ
+
 async function getAllLaunches(skip, limit) {
     /* {} using an empty object in .find({},{}) mongo know we want all the entrys. The second object parameter
      is the projection object. There you can define which properties dont want in our object, 
@@ -119,6 +121,8 @@ async function getAllLaunches(skip, limit) {
         .limit(limit);
 };
 
+
+// CREATE / UPDATE
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Upsertea un lanzamiento en la DB. (solo eso)
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,6 +168,7 @@ async function scheduleNewLaunch(launch) {
     await saveLaunch(newLaunch)
 }
 
+// DEL
 //////////////////////////////////////////////////////
 /// Cambia el success a false en un obj lanzamiento.
 //////////////////////////////////////////////////////

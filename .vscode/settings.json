@@ -1,4 +1,7 @@
 {
     "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.enableBell": false,
+    "accessibility.signals.terminalBell": {
+        "sound": "off"
+    },
+    "terminal.integrated.enableVisualBell": false,
 }

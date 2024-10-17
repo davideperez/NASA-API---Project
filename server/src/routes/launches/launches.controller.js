@@ -7,8 +7,6 @@ const {
 
 const { getPagination } = require('../../services/query')
 
-// getAllLaunches is an ENDPOINT.
-
 async function httpGetAllLaunches(req, res) {
     console.log(req.query);
     const { skip, limit } = getPagination(req.query);

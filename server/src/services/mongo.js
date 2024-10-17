@@ -2,13 +2,14 @@ const mongoose = require('mongoose')
 
 require('dotenv').config();
 
+console.log('process.env.MONGO_URL: ', process.env.MONGO_URL)
 const MONGO_URL = process.env.MONGO_URL;
 
 //////////////////////////////////////////
 // MongoDB SETUP
 //////////////////////////////////////////
 
-// This was asked by cconsole by mongoose, i dont know what it does yet.
+// 
 mongoose.set('strictQuery', false)
 
 mongoose.connection.once('open', () => {

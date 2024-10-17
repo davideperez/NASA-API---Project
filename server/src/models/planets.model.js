@@ -52,6 +52,7 @@ function loadPlanetsData() {
 
 //Receives each planet from the csv from nasa and adds upserts it to MongoDB.
 
+// CREATE / UPDATE
 async function savePlanet(planet) {
     try {
         await planets.updateOne({ // insert + update = upsert: inserts when our object does not already exists. if exists it updates it.
@@ -66,6 +67,7 @@ async function savePlanet(planet) {
     }
 }
 
+// READ
 async function getAllPlanets(){
     return await planets.find({},{
         '_id':0, '__v':0,
